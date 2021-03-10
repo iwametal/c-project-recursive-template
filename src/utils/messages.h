@@ -5,11 +5,7 @@
  *
  *    Description:  Header file of program messages
  *
- *        Created:  24/03/2015 22:30:42
- *       Compiler:  gcc
- *
- *         Author:  Gustavo Pantuza
- *   Organization:  Software Community
+ *         Author:  Leo Andrade
  *
  * ============================================================================
  */
@@ -19,7 +15,7 @@
 
 #define __PROGRAM_NAME__ "Program Name"
 #define __PROGRAM_VERSION__ "0.0.1"
-#define __PROGRAM_AUTHOR__ "Gustavo Pantuza (gustavopantuza@gmail.com)"
+#define __PROGRAM_AUTHOR__ "Leo Andrade"
 
 void help ();
 void usage ();

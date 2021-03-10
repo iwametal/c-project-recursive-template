@@ -5,11 +5,7 @@
  *
  *    Description:  This file define the output colors used by the program
  *
- *        Created:  24/03/2015 22:20:40 PM
- *       Compiler:  gcc
- *
- *         Author:  Gustavo Pantuza
- *   Organization:  Software Community
+ *         Author:  Leo Andrade
  *
  * ============================================================================
  */

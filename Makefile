@@ -4,7 +4,6 @@
 # Makefile template for C code
 #
 # Author: Leo Andrade
-# Since: 24.03.2016
 #
 #
 #

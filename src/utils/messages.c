@@ -5,11 +5,7 @@
  *
  *    Description:  Program messages implementation
  *
- *        Created:  24/03/2016 22:48:39
- *       Compiler:  gcc
- *
- *         Author:  Gustavo Pantuza
- *   Organization:  Software Community
+ *         Author:  Leo Andrade
  *
  * ============================================================================
  */

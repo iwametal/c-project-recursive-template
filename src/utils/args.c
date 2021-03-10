@@ -5,11 +5,7 @@
  *
  *    Description:  Command line options parser using GNU getopt
  *
- *        Created:  24/03/2015 22:00:09 PM
- *       Compiler:  gcc
- *
- *         Author:  Gustavo Pantuza
- *   Organization:  Software Community
+ *         Author:  Leo Andrade
  *
  * ============================================================================
  */
@@ -71,7 +67,8 @@ void
 get_file_name (int argc, char* argv[], options_t* options)
 {
     /* If there is more arguments, probably, it is an input file */
-    if (optind < argc) {
+    if (optind < argc)
+		{
         strncpy(options->file_name, argv[optind++], FILE_NAME_SIZE);
 
     /* Otherwise, assumes stdin as the input file */
@@ -98,7 +95,8 @@ options_parser (int argc, char* argv[], options_t* options)
         {"no-colors", no_argument, 0, 0},
     };
 
-    while (true) {
+    while (true)
+		{
 
         int option_index = 0;
         arg = getopt_long(argc, argv, "hvt:", long_options, &option_index);

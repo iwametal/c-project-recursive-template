@@ -5,11 +5,7 @@
  *
  *    Description:  Main execution of the tests using cmocka
  *
- *        Created:  04/28/2016 19:21:37
- *       Compiler:  gcc
- *
- *         Author:  Gustavo Pantuza
- *   Organization:  Software Community
+ *         Author:  Leo Andrade
  *
  * ============================================================================
  */
