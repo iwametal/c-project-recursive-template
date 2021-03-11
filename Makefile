@@ -30,7 +30,7 @@ endif
 OS := $(shell uname -s)
 
 # Default shell
-SHELL := bash
+SHELL := /bin/bash
 
 # Color prefix for Linux distributions
 COLOR_PREFIX := e
@@ -57,7 +57,7 @@ TESTDIR := test
 # Source code file extension
 SRCEXT := c
 SRCEXEC := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
-NUMEXEC := 0
+# NUMEXEC := 0
 
 
 # Defines the C Compiler
