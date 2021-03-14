@@ -95,6 +95,7 @@ export TEST_BINARY := $(BINARY)_test_runner
 
 
 MFILEDIR := resources/makefiles/sample
+D_FILE := $(PROJECT_PATH)/.vimspector.json
 
 
 
@@ -138,7 +139,33 @@ start:
 	@mkdir -pv $(PROJECT_PATH)
 	@echo "Copying files from template to new directory:"
 	@cp -rvf ./* $(PROJECT_PATH)/
-	@echo
+	@echo ""
+	@echo "Generating $(D_FILE) debug file"
+	@echo "{" >$(D_FILE); \
+	echo -e "\t\"configurations\": {" >>$(D_FILE); \
+	echo -e "\t\t\"Python: Attach to VIM\": {" >>$(D_FILE); \
+	echo -e "\t\t\t\"variables\": {" >>$(D_FILE); \
+	echo -e "\t\t\t\t\"port\": \"5678\"," >>$(D_FILE); \
+	echo -e "\t\t\t\t\"host\": \"localhost\"" >>$(D_FILE); \
+	echo -e "\t\t\t}," >>$(D_FILE); \
+	echo -e "\t\t\t\"adapter\": \"vscode-cpptools\"," >>$(D_FILE); \
+	echo -e "\t\t\t\"configuration\": {" >>$(D_FILE); \
+	echo -e "\t\t\t\t\"request\": \"attach\"" >>$(D_FILE); \
+	echo -e "\t\t\t}" >>$(D_FILE); \
+	echo -e "\t\t}," >>$(D_FILE); \
+	echo -e "\t\t\"C: Run current script\": {" >>$(D_FILE); \
+	echo -e "\t\t\t\"adapter\": \"vscode-cpptools\"," >>$(D_FILE); \
+	echo -e "\t\t\t\"configuration\": {" >>$(D_FILE); \
+	echo -e "\t\t\t\t\"request\": \"launch\"," >>$(D_FILE); \
+	echo -e "\t\t\t\t\"program\": \"$(PROJECT_PATH)/$(BINDIR)/$(BINARY)\"," >>$(D_FILE); \
+	echo -e "\t\t\t\t\"args\": [ \"*\$${args: }\" ]," >>$(D_FILE); \
+	echo -e "\t\t\t\t\"justMyCode#json\": \"\$${justMyCode:true}\"" >>$(D_FILE); \
+	echo -e "\t\t\t}" >>$(D_FILE); \
+	echo -e "\t\t}" >>$(D_FILE); \
+	echo -e "\t}" >>$(D_FILE); \
+	echo -e "}" >>$(D_FILE)
+	@echo "$(D_FILE) successffully generated"
+	@echo ""
 	@echo "Go to $(PROJECT_PATH) and compile your project: make"
 	@echo "Then execute it: bin/$(BINARY) --help"
 	@echo "Happy hacking o/"
@@ -161,7 +188,6 @@ all:
 
 
 install: all
-	@echo ""
 
 
 # Rule for run valgrind tool
