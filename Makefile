@@ -27,10 +27,10 @@ endif
 
 
 # Gets the Operating system name
-OS := $(shell uname -s)
+export OS := $(shell uname -s)
 
 # Default shell
-SHELL := /bin/bash
+export SHELL := /bin/bash
 
 # Color prefix for Linux distributions
 COLOR_PREFIX := e
@@ -39,72 +39,78 @@ ifeq ($(OS),Darwin)
 	COLOR_PREFIX := 033
 endif
 
+export COLOR_PREFIX
+
 # Color definition for print purpose
-BROWN=\$(COLOR_PREFIX)[0;33m
-BLUE=\$(COLOR_PREFIX)[1;34m
-END_COLOR=\$(COLOR_PREFIX)[0m
+export BROWN=\$(COLOR_PREFIX)[0;33m
+export BLUE=\$(COLOR_PREFIX)[1;34m
+export END_COLOR=\$(COLOR_PREFIX)[0m
 
 
 
 # Source code directory structure
-BINDIR := bin
+ACTUAL_PATH := $(shell pwd)
 SRCDIR := src
-LOGDIR := log
-LIBDIR := obj
+BINDIR := bin
 TESTDIR := test
+export LOGDIR := $(ACTUAL_PATH)/log
+export LIBDIR := $(ACTUAL_PATH)/obj
 
 
 # Source code file extension
-SRCEXT := c
-SRCEXEC := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
+export SRCEXT := c
+SRCEXEC := $(shell find $(SRCDIR) -type f -name Makefile|sed 's/\/Makefile//g')
 # NUMEXEC := 0
 
 
 # Defines the C Compiler
-CC := gcc
+export CC := gcc
 
 
 # Defines the language standards for GCC
-STD := -std=gnu99 # See man gcc for more options
+export STD := -std=gnu99 # See man gcc for more options
 
 # Protection for stack-smashing attack
-STACK := -fstack-protector-all -Wstack-protector
+export STACK := -fstack-protector-all -Wstack-protector
 
 # Specifies to GCC the required warnings
-WARNS := -Wall -Wextra -pedantic # -pedantic warns on language standards
+export WARNS := -Wall -Wextra -pedantic # -pedantic warns on language standards
 
 # Flags for compiling
-CFLAGS := -O3 $(STD) $(STACK) $(WARNS)
+export CFLAGS := -O3 $(STD) $(STACK) $(WARNS)
 
 # Debug options
-DEBUG := -g3 -DDEBUG=1
+export DEBUG := -g3 -DDEBUG=1
 
 # Dependency libraries
-LIBS := # -lm  -I some/path/to/library
+export LIBS := # -lm  -I some/path/to/library
 
 # Test libraries
-TEST_LIBS := -l cmocka -L /usr/lib
+export TEST_LIBS := -l cmocka -L /usr/lib
 
 
 
 # Tests binary file
-TEST_BINARY := $(BINARY)_test_runner
+export TEST_BINARY := $(BINARY)_test_runner
+
+
+MFILEDIR := resources/makefiles/sample
 
 
 
 # %.o file names
 # NAMES := $(notdir $(basename $(wildcard $(SRCDIR)/*.$(SRCEXT))))
-NAMES := $(notdir $(basename $(wildcard $(SRCEXEC))))
+# NAMES := $(notdir $(basename $(wildcard $(SRCEXEC))))
 # NAMES := $(foreach s,$(SRCEXEC),$(eval $(call COMPILE_rule,$(s))))
 # NAMES := $(foreach s,$(SRCEXEC),$(notdir $(basename $(wildcard $(SRCEXEC)))))
-OBJECTS := $(patsubst %,$(LIBDIR)/%.o,$(NAMES))
+# OBJECTS := $(patsubst %,$(LIBDIR)/%.o,$(NAMES))
 # OBJECTS := $(patsubst %.$(SRCEXT),$(LIBDIR)/%.o,$(notdir $(SRCEXEC)))
 # OBJECTS :=$(patsubst %,$(LIBDIR)/%.o,$(NAMES))
 
 
-ifneq ($(words $(OBJECTS)),$(words $(sort $(OBJECTS))))
-	$(warning object file name conflicts detected)
-endif
+# ifneq ($(words $(OBJECTS)),$(words $(sort $(OBJECTS))))
+# 	$(warning object file name conflicts detected)
+# endif
 
 
 #
@@ -139,22 +145,23 @@ start:
 
 
 # Rule for link and generate the binary file
-all: $(OBJECTS)
+all:
+	@for S in $(SRCEXEC); do \
+		echo ""; \
+		echo -e "$(BROWN)[ Processing $$S/Makefile ]$(END_COLOR)"; \
+		$(MAKE) -C $$S; \
+	done;
+	@echo ""
+	@echo -e "$(BROWN)[ Processing objects ]$(END_COLOR)";
+	@echo "-"
 	@echo -en "$(BROWN)LD $(END_COLOR)";
-	$(CC) -o $(BINDIR)/$(BINARY) $+ $(DEBUG) $(CFLAGS) $(LIBS)
+	$(CC) -o $(BINDIR)/$(BINARY) $(LIBDIR)/*.o $(DEBUG) $(CFLAGS) $(LIBS)
 	@echo -en "\n--\nBinary file placed at" \
 			  "$(BROWN)$(BINDIR)/$(BINARY)$(END_COLOR)\n";
 
 
 install: all
 	@echo ""
-
-
-# Rule for object binaries compilation
-$(LIBDIR)/%.o: $(SRCEXEC)
-	@echo -en "$(BROWN)CC $(END_COLOR)";
-	$(eval NUMEXEC=$(shell echo $$(($(NUMEXEC)+1))))
-	$(CC) -c $(word $(NUMEXEC), $(SRCEXEC)) -o $@ $(DEBUG) $(CFLAGS) $(LIBS)
 
 
 # Rule for run valgrind tool
@@ -175,6 +182,14 @@ tests:
 	@which ldconfig && ldconfig -C /tmp/ld.so.cache || true # caching the library linking
 	@echo -en "$(BROWN) Running tests: $(END_COLOR)";
 	./$(BINDIR)/$(TEST_BINARY)
+
+
+dir:
+	@read -p "Directory name: " DIR; \
+	[[ -z $$DIR ]] && echo -e "$(BROWN)[ERROR]$(END_COLOR) You need to specify a name for the new directory!" && exit; \
+	[[ -d "$(SRCDIR)/$$DIR" ]] && echo -e "$(BROWN)[ERROR]$(END_COLOR) $$DIR already created in $(SRCDIR)" && exit; \
+	echo "-" && echo "Creating $$DIR" && mkdir -pv "$(SRCDIR)/$$DIR" && echo "$$DIR created in $(SRCDIR)" || exit; \
+	echo "-" && echo "Transferring Makefile for $$DIR" && cp -vf "$(MFILEDIR)/Makefile" "$(SRCDIR)/$$DIR" && echo "Makefile transferred for $(SRCDIR)/$$DIR" && echo "-" || exit;
 
 
 # Rule for cleaning the project
