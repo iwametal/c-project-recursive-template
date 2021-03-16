@@ -18,7 +18,8 @@
 /* include here your files that contain test functions */
 
 /* A test case that does nothing and succeeds. */
-static void null_test_success(void **state)
+static void
+null_test_success(void **state)
 {
     /**
      * If you want to know how to use cmocka, please refer to:
