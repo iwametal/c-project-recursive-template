@@ -32,7 +32,7 @@ main (int argc, char* argv[])
     fprintf(stdout, BROWN "filename: %s\n" NO_COLOR, options.file_name);
 #endif
 
-    /* Do your magic here :) */
+    /* code */
 
     return EXIT_SUCCESS;
 }
