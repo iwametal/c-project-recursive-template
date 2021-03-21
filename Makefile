@@ -190,6 +190,13 @@ all:
 install: all
 
 
+run: all
+	@echo -e "$(BROWN)Type [ENTER] to run the code "
+	@read buff
+	@clear
+	$(BINDIR)/$(BINARY)
+
+
 # Rule for run valgrind tool
 valgrind:
 	valgrind \
