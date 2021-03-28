@@ -54,12 +54,14 @@ SRCDIR := src
 BINDIR := bin
 TESTDIR := test
 export LOGDIR := $(ACTUAL_PATH)/log
-export LIBDIR := $(ACTUAL_PATH)/obj
+export OBJDIR := obj
 
 
 # Source code file extension
 export SRCEXT := c
-SRCEXEC := $(shell find $(SRCDIR) -type f -name Makefile|sed 's/\/Makefile//g')
+SRCEXEC := $(shell find $(SRCDIR) -type f -name Makefile)
+OBJEXEC := $(shell echo "$(SRCEXEC)"|sed 's/\/Makefile/\/$(OBJDIR)\/*.o/g')
+SRCEXEC := $(shell echo "$(SRCEXEC)"|sed 's/\/Makefile//g')
 # NUMEXEC := 0
 
 
@@ -104,9 +106,9 @@ D_FILE := $(PROJECT_PATH)/.vimspector.json
 # NAMES := $(notdir $(basename $(wildcard $(SRCEXEC))))
 # NAMES := $(foreach s,$(SRCEXEC),$(eval $(call COMPILE_rule,$(s))))
 # NAMES := $(foreach s,$(SRCEXEC),$(notdir $(basename $(wildcard $(SRCEXEC)))))
-# OBJECTS := $(patsubst %,$(LIBDIR)/%.o,$(NAMES))
-# OBJECTS := $(patsubst %.$(SRCEXT),$(LIBDIR)/%.o,$(notdir $(SRCEXEC)))
-# OBJECTS :=$(patsubst %,$(LIBDIR)/%.o,$(NAMES))
+# OBJECTS := $(patsubst %,$(OBJDIR)/%.o,$(NAMES))
+# OBJECTS := $(patsubst %.$(SRCEXT),$(OBJDIR)/%.o,$(notdir $(SRCEXEC)))
+# OBJECTS :=$(patsubst %,$(OBJDIR)/%.o,$(NAMES))
 
 
 # ifneq ($(words $(OBJECTS)),$(words $(sort $(OBJECTS))))
@@ -127,6 +129,7 @@ help:
 	@echo "Target rules:"
 	@echo "    all      - Compiles and generates binary file"
 	@echo "    install  - Same as all argument"
+	@echo "    dir      - Create a new diretory into src folder with all dependencies already fullfilled"
 	@echo "    tests    - Compiles with cmocka and run tests binary file"
 	@echo "    start    - Starts a new project using C project template"
 	@echo "    valgrind - Runs binary file using valgrind tool"
@@ -182,7 +185,7 @@ all:
 	@echo -e "$(BROWN)[ Processing objects ]$(END_COLOR)";
 	@echo "-"
 	@echo -en "$(BROWN)LD $(END_COLOR)";
-	$(CC) -o $(BINDIR)/$(BINARY) $(LIBDIR)/*.o $(DEBUG) $(CFLAGS) $(LIBS)
+	$(CC) -o $(BINDIR)/$(BINARY) $(OBJEXEC) $(DEBUG) $(CFLAGS) $(LIBS)
 	@echo -en "\n--\nBinary file placed at" \
 			  "$(BROWN)$(BINDIR)/$(BINARY)$(END_COLOR)\n";
 
@@ -221,10 +224,10 @@ dir:
 	@read -p "Directory name: " DIR; \
 	[[ -z $$DIR ]] && echo -e "$(BROWN)[ERROR]$(END_COLOR) You need to specify a name for the new directory!" && exit; \
 	[[ -d "$(SRCDIR)/$$DIR" ]] && echo -e "$(BROWN)[ERROR]$(END_COLOR) $$DIR already created in $(SRCDIR)" && exit; \
-	echo "-" && echo "Creating $$DIR" && mkdir -pv "$(SRCDIR)/$$DIR" && echo "$$DIR created in $(SRCDIR)" || exit; \
+	echo "-" && echo "Creating $$DIR" && mkdir -pv "$(SRCDIR)/$$DIR/$(OBJDIR)" && touch "$(SRCDIR)/$$DIR/$(OBJDIR)/.gitkeep" && echo "$$DIR created in $(SRCDIR)" || exit; \
 	echo "-" && echo "Transferring Makefile for $$DIR" && cp -vf "$(MFILEDIR)/Makefile" "$(SRCDIR)/$$DIR" && echo "Makefile transferred for $(SRCDIR)/$$DIR" && echo "-" || exit;
 
 
 # Rule for cleaning the project
 clean:
-	@rm -rvf $(BINDIR)/* $(LIBDIR)/* $(LOGDIR)/*;
+	@rm -rvf $(BINDIR)/* $(OBJEXEC) $(LOGDIR)/*;
