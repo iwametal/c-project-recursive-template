@@ -128,6 +128,7 @@ help:
 	@echo "    all      - Compiles and generates binary file"
 	@echo "    install  - Same as all argument"
 	@echo "    dir      - Create a new diretory into src folder with all dependencies already fullfilled"
+	@echo "    run      - runs 'all' target and execute the binary file"
 	@echo "    tests    - Compiles with cmocka and run tests binary file"
 	@echo "    start    - Starts a new project using C project template"
 	@echo "    valgrind - Runs binary file using valgrind tool"
