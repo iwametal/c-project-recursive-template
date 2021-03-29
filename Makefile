@@ -27,10 +27,10 @@ endif
 
 
 # Gets the Operating system name
-export OS := $(shell uname -s)
+OS := $(shell uname -s)
 
 # Default shell
-export SHELL := /bin/bash
+SHELL := /bin/bash
 
 # Color prefix for Linux distributions
 COLOR_PREFIX := e
@@ -38,8 +38,6 @@ COLOR_PREFIX := e
 ifeq ($(OS),Darwin)
 	COLOR_PREFIX := 033
 endif
-
-export COLOR_PREFIX
 
 # Color definition for print purpose
 export BROWN=\$(COLOR_PREFIX)[0;33m
@@ -53,7 +51,7 @@ ACTUAL_PATH := $(shell pwd)
 SRCDIR := src
 BINDIR := bin
 TESTDIR := test
-export LOGDIR := $(ACTUAL_PATH)/log
+LOGDIR := $(ACTUAL_PATH)/log
 export OBJDIR := obj
 
 
@@ -70,13 +68,13 @@ export CC := gcc
 
 
 # Defines the language standards for GCC
-export STD := -std=gnu99 # See man gcc for more options
+STD := -std=gnu99 # See man gcc for more options
 
 # Protection for stack-smashing attack
-export STACK := -fstack-protector-all -Wstack-protector
+STACK := -fstack-protector-all -Wstack-protector
 
 # Specifies to GCC the required warnings
-export WARNS := -Wall -Wextra -pedantic # -pedantic warns on language standards
+WARNS := -Wall -Wextra -pedantic # -pedantic warns on language standards
 
 # Flags for compiling
 export CFLAGS := -O3 $(STD) $(STACK) $(WARNS)
@@ -88,12 +86,12 @@ export DEBUG := -g3 -DDEBUG=1
 export LIBS := # -lm  -I some/path/to/library
 
 # Test libraries
-export TEST_LIBS := -l cmocka -L /usr/lib
+TEST_LIBS := -l cmocka -L /usr/lib
 
 
 
 # Tests binary file
-export TEST_BINARY := $(BINARY)_test_runner
+TEST_BINARY := $(BINARY)_test_runner
 
 
 MFILEDIR := resources/makefiles/sample
