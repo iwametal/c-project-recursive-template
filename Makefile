@@ -224,7 +224,16 @@ dir:
 	[[ -z $$DIR ]] && echo -e "$(BROWN)[ERROR]$(END_COLOR) You need to specify a name for the new directory!" && exit; \
 	[[ -d "$(SRCDIR)/$$DIR" ]] && echo -e "$(BROWN)[ERROR]$(END_COLOR) $$DIR already created in $(SRCDIR)" && exit; \
 	echo "-" && echo "Creating $$DIR" && mkdir -pv "$(SRCDIR)/$$DIR/$(OBJDIR)" && touch "$(SRCDIR)/$$DIR/$(OBJDIR)/.gitkeep" && echo "$$DIR created in $(SRCDIR)" || exit; \
-	echo "-" && echo "Transferring Makefile for $$DIR" && cp -vf "$(MFILEDIR)/Makefile" "$(SRCDIR)/$$DIR" && echo "Makefile transferred for $(SRCDIR)/$$DIR" && echo "-" || exit;
+	echo "-" && echo "Transferring Makefile for $(SRCDIR)/$$DIR" && cp -vf "$(MFILEDIR)/Makefile" "$(SRCDIR)/$$DIR" && echo "Makefile transferred for $(SRCDIR)/$$DIR" && echo "-" || exit;
+
+
+srcfolder:
+	@read -p "Directory name: " DIR; \
+	[[ -z $$DIR ]] && echo -e "$(BROWN)[ERROR]$(END_COLOR) You need to specify a name for a existent directory!" && exit; \
+	[[ ! -d "$(SRCDIR)/$$DIR" ]] && echo -e "$(BROWN)[ERROR]$(END_COLOR) $$DIR must exist!" && exit; \
+	[[ -d "$(SRCDIR)/$$DIR/$(OBJDIR)" ]] && [[ -f "$(SRCDIR)/$$DIR/Makefile" ]] && echo -e "$(BROWN)[ERROR]$(END_COLOR) $$DIR is already a source folder!" && exit; \
+	echo "-" && echo "Creating object folder $(OBJDIR)" && mkdir -pv "$(SRCDIR)/$$DIR/$(OBJDIR)" && touch "$(SRCDIR)/$$DIR/$(OBJDIR)/.gitkeep" && echo "Object directory $(OBJDIR) created!" || exit; \
+	echo "-" && echo "Transferring Makefile for $(SRCDIR)/$$DIR" && cp -vf "$(MFILEDIR)/Makefile" "$(SRCDIR)/$$DIR" && echo "Makefile transferred for $(SRCDIR)/$$DIR" && echo "-" || exit;
 
 
 # Rule for cleaning the project
