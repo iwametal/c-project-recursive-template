@@ -125,15 +125,16 @@ help:
 	@echo "C Project Template"
 	@echo
 	@echo "Target rules:"
-	@echo "    all      - Compiles and generates binary file"
-	@echo "    install  - Same as all argument"
-	@echo "    dir      - Create a new diretory into src folder with all dependencies already fullfilled"
-	@echo "    run      - runs 'all' target and execute the binary file"
-	@echo "    tests    - Compiles with cmocka and run tests binary file"
-	@echo "    start    - Starts a new project using C project template"
-	@echo "    valgrind - Runs binary file using valgrind tool"
-	@echo "    clean    - Clean the project by removing binaries"
-	@echo "    help     - Prints a help message with target rules"
+	@echo "    all       - Compiles and generates binary file"
+	@echo "    install   - Same as all argument"
+	@echo "    dir       - Create a new diretory into src folder with all dependencies already fullfilled"
+	@echo "    srcfolder - Transform an existent directory int a source directory"
+	@echo "    run       - runs 'all' target and execute the binary file"
+	@echo "    tests     - Compiles with cmocka and run tests binary file"
+	@echo "    start     - Starts a new project using C project template"
+	@echo "    valgrind  - Runs binary file using valgrind tool"
+	@echo "    clean     - Clean the project by removing binaries"
+	@echo "    help      - Prints a help message with target rules"
 
 # Starts a new project using C project template
 start:
