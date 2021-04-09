@@ -1,0 +1,23 @@
+{
+	"configurations": {
+		"Python: Attach to VIM": {
+			"variables": {
+				"port": "5678",
+				"host": "localhost"
+			},
+			"adapter": "vscode-cpptools",
+			"configuration": {
+				"request": "attach"
+			}
+		},
+		"C: Run current script": {
+			"adapter": "vscode-cpptools",
+			"configuration": {
+				"request": "launch",
+				"program": "~/path/to/project_name/bin/out",
+				"args": [ "*${args: }" ],
+				"justMyCode#json": "${justMyCode:true}"
+			}
+		}
+	}
+}
