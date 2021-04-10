@@ -10,8 +10,8 @@
  * ============================================================================
  */
 
-#ifndef COLORS_H
-#define COLORS_H
+#ifndef _COLORS_H_
+#define _COLORS_H_
 
 /**
  *

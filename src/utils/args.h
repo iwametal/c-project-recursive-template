@@ -10,8 +10,8 @@
  * ============================================================================
  */
 
-#ifndef ARGS_H
-#define ARGS_H
+#ifndef _ARGS_H_
+#define _ARGS_H_
 
 #include <stdbool.h>
 #include <getopt.h>
@@ -33,6 +33,6 @@ typedef struct options options_t;
 
 /* Public functions section */
 void
-options_parser(int argc, char* argv[], options_t* options);
+options_parser (int argc, char* argv[], options_t* options);
 
 #endif // ARGS_H
