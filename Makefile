@@ -129,7 +129,7 @@ help:
 	@echo "    install   - Same as all argument"
 	@echo "    dir       - Create a new diretory into src folder with all dependencies already fullfilled"
 	@echo "    srcfolder - Transform an existent directory int a source directory"
-	@echo "    run       - runs 'all' target and execute the binary file"
+	@echo "    run       - execute the binary file"
 	@echo "    tests     - Compiles with cmocka and run tests binary file"
 	@echo "    start     - Starts a new project using C project template"
 	@echo "    valgrind  - Runs binary file using valgrind tool"
@@ -171,11 +171,8 @@ all:
 install: all
 
 
-run: all
-	@echo -e "$(BROWN)Type [ENTER] to run the code "
-	@read buff
-	@clear
-	$(BINDIR)/$(BINARY)
+run:
+	@[[ ! -f $(BINDIR)/$(BINARY) ]] && echo -e "$(BROWN)[ERROR]$(END_COLOR) Binary file does not exists. Compile the project first" && exit 1 || $(BINDIR)/$(BINARY)
 
 
 # Rule for run valgrind tool
