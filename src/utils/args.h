@@ -22,10 +22,10 @@
 /* Defines the command line allowed options struct */
 struct options
 {
-    bool help;
-    bool version;
-    bool use_colors;
-    char file_name[FILE_NAME_SIZE];
+	bool help;
+	bool version;
+	bool use_colors;
+	char file_name[FILE_NAME_SIZE];
 };
 
 /* Exports options as a global type */
