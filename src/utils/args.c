@@ -35,8 +35,7 @@ set_default_options (options_t* options)
 void
 switch_options (int arg, options_t* options)
 {
-	switch (arg)
-	{
+	switch (arg) {
 		case 'h':
 			options->help = true;
 			help();
@@ -68,8 +67,7 @@ void
 get_file_name (int argc, char* argv[], options_t* options)
 {
 	/* If there is more arguments, probably, it is an input file */
-	if (optind < argc)
-	{
+	if (optind < argc) {
 		strncpy(options->file_name, argv[optind++], FILE_NAME_SIZE);
 
 		/* Otherwise, assumes stdin as the input file */
@@ -96,8 +94,7 @@ options_parser (int argc, char* argv[], options_t* options)
 		{"no-colors", no_argument, 0, 0},
 	};
 
-	while (true)
-	{
+	while (true) {
 
 		int option_index = 0;
 		arg = getopt_long(argc, argv, "hvt:", long_options, &option_index);
