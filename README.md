@@ -1,7 +1,7 @@
 # RECURSIVE TEMPLATE FOR C
 
 ## <sup>layer 1</sup> ABOUT
-This is a simple recursive templace for C language. The idea is to have the project structured recursively, so it can be better organized. The template uses Makefile to structure, compile and edit the project. I will be putting the essencial commands here, but you can check and edit at your will in [Makefile](https://github.com/iwametal/c-project-recursive-template/Makefile). This project uses Linux as its based system, so it might have problems running on Windows or Mac. However it should be possible by changing the Makefile commands and debug configurations or using a container machine (e.g. WSL).
+This is a simple recursive templace for C language. The idea is to have the project structured recursively, so it can be better organized. The template uses Makefile to structure, compile and edit the project. I will be putting the essencial commands here, but you can check and edit at your will in [Makefile](https://github.com/iwametal/c-project-recursive-template/blob/master/Makefile). This project uses Linux as its based system, so it might have problems running on Windows or Mac. However it should be possible by changing the Makefile commands and debug configurations or using a container machine (e.g. WSL).
 
 
 [comment]: <> (<p align="center">last update: Month Day<sup>st</sup>, Year</p>)
