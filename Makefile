@@ -94,7 +94,7 @@ TEST_LIBS := -l cmocka -L /usr/lib
 TEST_BINARY := $(BINARY)_test_runner
 
 
-MFILEDIR := resources/makefiles/sample
+MFILEDIR := resources/makefile/sample
 D_FILE := vimspector.json
 
 
