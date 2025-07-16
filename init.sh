@@ -16,7 +16,7 @@ done
 
 echo "PROJECT NAME: $project_name"
 echo "Adding project name"
-sed -i 's/project_name/'$projec_name'/g' project.conf
+sed -i 's/project_name/'$project_name'/g' project.conf
 echo "Adding path for the project"
 sed -i 's/~\/path\/to/'$(pwd | sed 's,/*[^/]\+/*$,,' | sed 's/\//\\\//g')'/g' project.conf
 
@@ -30,5 +30,5 @@ read std
 
 [ -n "$std" ] && [ $std != $default_std ] && echo "Adding language standards for the compiler {$std}" && sed -i 's/STD := -std=gnu99/STD := '$std'/g' Makefile
 
-echo -e "$LILAC""[Project Base Configured]""$RESET_COLOR"
-echo "Do not forget to take a look in ""$BLUE""Makefile ""$RESET_COLOR""for additional ""$BLUE""Flags""$RESET_COLOR"" and ""$BLUE""Configurations""$RESET_COLOR"
+echo -e "\n\n""$LILAC""[Project Base Configured]""$RESET_COLOR"
+echo -e "Do not forget to take a look in ""$BLUE""Makefile ""$RESET_COLOR""for additional ""$BLUE""Flags and Configurations""$RESET_COLOR"
