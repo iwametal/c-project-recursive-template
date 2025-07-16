@@ -149,7 +149,7 @@ start:
 	@echo ""
 	@echo "Go to $(PROJECT_PATH) and compile your project: make"
 	@echo "Then execute it: bin/$(BINARY) --help"
-	@echo "Happy hacking o/"
+	@echo "Be sure to take a look at Makefile for more specific changes, such as Compiler, Standards, Debugs, Flags or any further configurations"
 
 
 # Rule for link and generate the binary file
