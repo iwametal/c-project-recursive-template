@@ -39,10 +39,12 @@ read std
 [ -n "$std" ] && [ $std != $default_std ] && echo "Adding language standards for the compiler {$std}..." && sed -i 's/STD := -std=gnu99/STD := -std='$std'/g' Makefile
 
 while true; do
-	echo -en "$LILAC""[Do you want to remove the current .git folder? (y/n)] ""$BLUE""[Default: n]: ""$RESET_COLOR"
+	echo -en "$LILAC""[Do you want to remove the current .git folder? (Y/n)] ""$BLUE""[Default: N]: ""$RESET_COLOR"
 	read option
 
-    case "$answer" in
+    [ -z $option ] && option=no
+
+    case "$option" in
         [Yy]|[Yy][Ee][Ss])
 			echo "Deleting git current history..."
             rm -rf .git/
