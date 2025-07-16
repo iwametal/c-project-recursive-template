@@ -16,6 +16,13 @@ $ git clone https://github.com/iwametal/c-project-recursive-template.git
 Once its cloned, you can change the folder name to your project name and init the project
 ```
 $ cd c-project-recursive-template
+
+$ # If you want to initiate a new project in another path:
+$ # Open `project.conf` file, insert your project name and the path for your new project
+$ # And run:
+$ make start
+
+$ # If you want to initiate a project inside the template, run:
 $ bash init.sh
 ```
 
