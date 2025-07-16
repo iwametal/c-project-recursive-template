@@ -38,5 +38,25 @@ read std
 
 [ -n "$std" ] && [ $std != $default_std ] && echo "Adding language standards for the compiler {$std}..." && sed -i 's/STD := -std=gnu99/STD := -std='$std'/g' Makefile
 
+while true; do
+	echo -en "$LILAC""[Do you want to remove the current .git folder? (y/n)] ""$BLUE""[Default: n]: ""$RESET_COLOR"
+	read option
+
+    case "$answer" in
+        [Yy]|[Yy][Ee][Ss])
+			echo "Deleting git current history..."
+            rm -rf .git/
+			echo "Git history deleted. Type `git init` to initiate a new history."
+            break
+            ;;
+        [Nn]|[Nn][Oo])
+            break
+            ;;
+        *)
+            echo "Invalid input. Please enter yes, y, no, or n."
+            ;;
+    esac
+done
+
 echo -e "\n\n""$LIGHT_BLUE""[Project Base Configured]""$RESET_COLOR"
 echo -e "Do not forget to take a look in ""$LIGHT_PURPLE""Makefile ""$RESET_COLOR""for additional ""$LIGHT_PURPLE""Flags and Configurations""$RESET_COLOR"
