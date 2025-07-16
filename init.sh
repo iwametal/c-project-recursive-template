@@ -14,12 +14,17 @@ default_std="gnu99"
 while [ -z "$project_name" ]; do
 	echo -en "$LILAC""[Enter your project name]: ""$RESET_COLOR"
 	read project_name
+
+	[ -e "./../$project_name" ] && echo "There is already a folder or file named $project_name in the current directory ($(pwd | sed 's,/*[^/]\+/*$,,'))" && project_name=''
 done
 
 echo "Reseting project configuration file..."
 cp -f ./resources/makefile/conf/project.conf ./project.conf
+
 echo "Adding project name {$project_name}..."
+mv -f ../$(echo "${PWD##*/}") ../$project_name
 sed -i 's/project_name/'$project_name'/g' project.conf
+
 echo "Adding path for the project {$(pwd)}..."
 sed -i 's/~\/path\/to/'$(pwd | sed 's,/*[^/]\+/*$,,' | sed 's/\//\\\//g')'/g' project.conf
 
